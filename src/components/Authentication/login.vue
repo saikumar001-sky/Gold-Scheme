@@ -6,13 +6,13 @@ import { useAlertsStore } from "@/stores";
 import {validations} from "@/utils/validation"
 import userSvc from "@/services/userSvc";
 import { setSessionStItem } from "@/utils/SessionStorage";
-
 const AlertStore=useAlertsStore()
 const router = useRouter()
 const loginModel = ref({
   user_name: null,
   password: null,
 });
+var showPassword=ref(false)
 const loginForm = ref();
  const login=async()=>{
   const validate=await loginForm.value?.validate()
@@ -74,6 +74,9 @@ const getuserProfile=async(id)=>{
         v-model="loginModel.password"
         color="primary"
         label="Password"
+        :append-inner-icon="showPassword ? 'fa-eye' : 'fa-eye'"
+        :type="showPassword ? 'text' : 'password'"
+        @click:append-inner="showPassword= !showPassword"
         :rules="validations.passwordValidations"
         placeholder="Enter your password"
       ></v-text-field>

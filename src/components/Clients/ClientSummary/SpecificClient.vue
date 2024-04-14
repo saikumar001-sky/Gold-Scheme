@@ -68,7 +68,7 @@
                 <v-col cols="12">
                   <v-text-field
                     v-model="editedItem.amount"
-                    label="Amount"
+                    label="Amount(RS)"
                     type="number"
                     :rules="FieldRequired('Amount')"
                     placeholder="Enter Amount"
@@ -77,8 +77,9 @@
                 <v-col cols="12">
                   <v-text-field
                     v-model="editedItem.rate"
-                    label="Rate"
+                    label="Rate (/gm)"
                     type="number"
+                    @input="calculateGold(editedItem.rate)"
                     :rules="FieldRequired('Rate')"
                     placeholder="Enter Rate"
                   ></v-text-field>
@@ -87,7 +88,7 @@
                 <v-col cols="12">
                   <v-text-field
                     v-model="editedItem.gold_gain"
-                    label="Gold Gain"
+                    label="Gold Gain (gm)"
                     type="number"
                     :rules="FieldRequired('Gold Gain')"
                     placeholder="Enter Gold Gain"
@@ -185,6 +186,9 @@ const defaultItem = ref({
 const openPay=()=>{
 paydialog.value=true
 editedItem.value = { ...defaultItem.value };
+}
+const calculateGold=(val)=>{
+  editedItem.value.gold_gain=(editedItem.value.amount/val).toFixed(2)
 }
 const recieptdiag=(item)=>{
   recieptdialog.value=true
